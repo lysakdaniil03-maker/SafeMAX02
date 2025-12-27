@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMAX - Модификация для мессенджера MAX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid #334155;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 800px;
+            margin: 0 auto 25px;
+        }
+        
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+            margin: 20px 0 40px;
+        }
+        
+        .telegram-btn:hover {
+            background: #0077b3;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.4);
+        }
+        
+        .links-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .link-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #334155;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: #3b82f6;
+        }
+        
+        .link-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .link-card p {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+        
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(59, 130, 246, 0.1);
+            color: #60a5fa;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid #3b82f6;
+            transition: all 0.3s ease;
+        }
+        
+        .link-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        .documents-section {
+            margin-top: 50px;
+        }
+        
+        .document-card {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #334155;
+        }
+        
+        .document-card h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #a78bfa;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .document-content {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 15px;
+        }
+        
+        .document-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .document-content::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 10px;
+        }
+        
+        .document-content::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        
+        .document-content h3 {
+            color: #60a5fa;
+            margin: 25px 0 15px;
+            font-size: 1.3rem;
+        }
+        
+        .document-content p {
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+        
+        .update-date {
+            color: #94a3b8;
+            font-style: italic;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid #334155;
+            margin-top: 50px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        .copyright {
+            margin-top: 15px;
+            color: #64748b;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .links-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .document-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+            </div>
+            <h1>SafeMAX</h1>
+            <p class="tagline">Неофициальный мод на мессенджер MAX, который убирает слежку и добавляет новые функции.</p>
+            
+            <a href="https://t.me/mod_max_messenger" class="telegram-btn" target="_blank">
+                <i class="fab fa-telegram"></i>
+                Telegram канал
+            </a>
+        </header>
+        
+        <main>
+            <section class="links-section">
+                <div class="link-card">
+                    <h3><i class="fas fa-question-circle"></i> Оригинальная страница помощи MAX</h3>
+                    <p>Официальная справочная информация от разработчиков мессенджера MAX</p>
+                    <a href="https://help.max.ru" class="link-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Перейти
+                    </a>
+                </div>
+                
+                <div class="link-card">
+                    <h3><i class="fas fa-compass"></i> Браузер</h3>
+                    <p>Быстрый доступ к поиску в интернете через Яндекс</p>
+                    <a href="https://ya.ru" class="link-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Перейти
+                    </a>
+                </div>
+            </section>
+            
+            <section class="documents-section">
+                <div class="document-card">
+                    <h2><i class="fas fa-file-contract"></i> Пользовательское соглашение</h2>
+                    <div class="document-content">
+                        <span class="update-date">Последнее обновление: пока что никогда</span>
+                        <p>Настоящее Соглашение регулирует отношения между Разработчиком модифицированного клиента SafeMAX (далее — «Разработчик») и лицом, использующим данное ПО (далее — «Пользователь»).</p>
+                        <p>Устанавливая или используя SafeMAX, Пользователь принимает все условия настоящего Соглашения. В случае несогласия использование ПО запрещено.</p>
+                        
+                        <h3>1. ТЕРМИНЫ</h3>
+                        <p>1.1. SafeMAX — модифицированное ПО для доступа к функционалу мессенджера MAX с дополнительными возможностями.</p>
+                        <p>1.2. Оригинальный сервис (MAX) — платформа обмена сообщениями, права на которую принадлежат ее Правообладателю.</p>
+                        <p>1.3. Пользователь — лицо, использующее SafeMAX.</p>
+                        <p>1.4. Модификация — изменения кода, дизайна или функционала, внесенные Разработчиком в SafeMAX.</p>
+                        
+                        <h3>2. ПРЕДМЕТ СОГЛАШЕНИЯ</h3>
+                        <p>2.1. Разработчик предоставляет Пользователю безвозмездную лицензию на использование SafeMAX по его прямому назначению.</p>
+                        <p>2.2. SafeMAX является неофициальным клиентом. Разработчик не является представителем или партнером Правообладателя MAX.</p>
+                        
+                        <h3>3. ИНТЕЛЛЕКТУАЛЬНАЯ СОБСТВЕННОСТЬ</h3>
+                        <p>3.1. Права на оригинальный сервис MAX, его товарные знаки, код и инфраструктуру принадлежат их Правообладателю.</p>
+                        <p>3.2. Права на модификации, дизайн и добавленные функции SafeMAX принадлежат Разработчику.</p>
+                        <p>3.3. Соглашение не дает Пользователю прав на товарные знаки Разработчика или Правообладателя MAX.</p>
+                        
+                        <h3>4. ОГРАНИЧЕНИЯ ИСПОЛЬЗОВАНИЯ</h3>
+                        <p>Запрещается:</p>
+                        <p>4.1. Использовать SafeMAX для нарушения закона.</p>
+                        <p>4.2. Использовать для рассылки спама, вредоносного ПО или мошенничества.</p>
+                        <p>4.3. Удалять уведомления об авторских правах.</p>
+                        
+                        <h3>5. ОТКАЗ ОТ ГАРАНТИЙ</h3>
+                        <p>5.1. SafeMAX предоставляется «КАК ЕСТЬ». Разработчик не гарантирует безошибочную работу и соответствие ожиданиям Пользователя.</p>
+                        <p>5.2. Разработчик не гарантирует, что использование SafeMAX не нарушает соглашение Оригинального сервиса MAX.</p>
+                        
+                        <h3>6. ОГРАНИЧЕНИЕ ОТВЕТСТВЕННОСТИ</h3>
+                        <p>6.1. Разработчик не несет ответственности за:</p>
+                        <p>• Потерю данных или сообщений.</p>
+                        <p>• Блокировку или удаление аккаунта в сервисе MAX.</p>
+                        <p>• Прямой или косвенный ущерб, включая упущенную выгоду.</p>
+                        <p>6.2. Риск блокировки аккаунта со стороны Правообладателя MAX лежит исключительно на Пользователе.</p>
+                        
+                        <h3>7. КОНФИДЕНЦИАЛЬНОСТЬ</h3>
+                        <p>7.1. Обработка персональных данных (переписка, контакты) осуществляется серверами Правообладателя MAX согласно его политике конфиденциальности.</p>
+                        
+                        <h3>8. ИЗМЕНЕНИЕ УСЛОВИЙ</h3>
+                        <p>8.1. Разработчик вправе в одностороннем порядке изменять условия Соглашения.</p>
+                        <p>8.2. Новая редакция вступает в силу с момента публикации.</p>
+                        <p>8.3. Продолжение использования SafeMAX означает согласие с новыми условиями.</p>
+                        
+                        <h3>9. КОНТАКТНАЯ ИНФОРМАЦИЯ</h3>
+                        <p>Telegram: https://t.me/mod_max_messenger</p>
+                        <p>© 2025 SafeMAX . Все права на модификацию защищены. Права на бренд MAX принадлежат их законным владельцам.</p>
+                    </div>
+                </div>
+                
+                <div class="document-card">
+                    <h2><i class="fas fa-gavel"></i> Правовая информация и права собственности</h2>
+                    <div class="document-content">
+                        <h3>ПРАВОВАЯ ИНФОРМАЦИЯ И ПРАВА СОБСТВЕННОСТИ</h3>
+                        <p>Продукт: SafeMAX (модифицированный клиент)</p>
+                        <p>Дата: 27.12.2025</p>
+                        
+                        <h3>ПРАВА ПРАВООБЛАДАТЕЛЯ MAX</h3>
+                        <p>Все права на оригинальное ПО, код, бренд «MAX», дизайн и серверную инфраструктуру принадлежат их законным владельцам.</p>
+                        <p>SafeMAX является неофициальной разработкой. Его создатели не связаны с правообладателями MAX.</p>
+                        <p>Проект не претендует на авторство оригинального сервиса и использует упоминания MAX только для обозначения совместимости.</p>
+                        
+                        <h3>ПРАВА РАЗРАБОТЧИКА SAFEMAX</h3>
+                        <p>Исключительные права на добавленный код, новые функции и уникальные элементы дизайна SafeMAX принадлежат его Разработчику.</p>
+                        <p>Разработчик оставляет за собой право:</p>
+                        <p>Любым образом изменять или прекращать разработку и поддержку SafeMAX.</p>
+                        <p>Ограничивать доступ к проекту.</p>
+                        <p>Определять условия распространения и внедрять модели добровольной поддержки или платные функции для дополнительного функционала.</p>
+                        
+                        <h3>ЗАПРОСЫ ПО ДАННЫМ</h3>
+                        <p>Для сообщения о нарушении прав, запроса на удаление или изменение модификации SafeMAX обращайтесь по официальному каналу:</p>
+                        <p>Telegram: https://t.me/mod_max_messenger</p>
+                        <p>Запросы рассматриваются в течение 30 рабочих дней, если проект активен и не прекращён.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>SafeMAX - неофициальная модификация для мессенджера MAX</p>
+            <p class="copyright">© 2025 SafeMAX. Все права на модификацию защищены. Права на бренд MAX принадлежат их законным владельцам.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Добавляем год в футер
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearSpan = document.querySelector('.copyright');
+            const currentYear = new Date().getFullYear();
+            yearSpan.innerHTML = yearSpan.innerHTML.replace('2025', currentYear);
+            
+            // Плавная прокрутка для всех ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
